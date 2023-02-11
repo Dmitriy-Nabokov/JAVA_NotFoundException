@@ -4,7 +4,7 @@ public class ProductRepository {
 
     private Product[] products = new Product[0];                // Массив товаров
 
-    public void save(Product product) {                         // Сохраняем товары
+    public void add(Product product) {                         // Сохраняем товары
         Product[] tmp = new Product[products.length + 1];
         for (int i = 0; i < products.length; i++) {
             tmp[i] = products[i];
@@ -18,36 +18,29 @@ public class ProductRepository {
         return products;
     }
 
-    public void removeById(int id) {         // Удаляем товар по ID
-        findById() {
-            if () {
-                throw new NotFoundException("Element with id: " + id + " not found");
-            }
-
-            //       if () {
-            //           throw new NotFoundException("Element with id: " + id + " not found");
-            //       }
-
-            Product[] tmp = new Product[products.length - 1];
-            int copyToIndex = 0;
-            for (Product item : products) {
-                if (item.getId() != id) {
-                    tmp[copyToIndex] = item;
-                    copyToIndex++;
-                }
-            }
-            products = tmp;
+    public void removeById(int removeId) {                       // Удаляем товар по ID
+        Product foundProduct = findById(removeId);
+        if (foundProduct == null) {
+            throw new NotFoundException(removeId);               // Выкидваем предупреждение
         }
 
-        public Product findById(          ) {                 /// Как вызвать ID из метода removeById ?
-            for (Product item : products) {
-                if (item.getId() == id) {
-                    return product;
-                }
+        Product[] tmp = new Product[products.length - 1];
+        int copyToIndex = 0;
+        for (Product item : products) {
+            if (item.getId() != removeId) {
+                tmp[copyToIndex] = item;
+                copyToIndex++;
             }
-            return null;
-
         }
+        products = tmp;
     }
 
+    public Product findById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
 }

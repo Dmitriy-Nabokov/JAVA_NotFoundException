@@ -12,12 +12,12 @@ public class ExceptionsTest {
     @Test
     public void removeByID() {
         ProductRepository repo = new ProductRepository();
-        repo.save(product1);
-        repo.save(product2);
-        repo.save(product3);
-        repo.save(product4);
-        repo.removeById(product2.getId());
-        repo.removeById(product3.getId());
+        repo.add(product1);
+        repo.add(product2);
+        repo.add(product3);
+        repo.add(product4);
+        repo.removeById(312);
+        repo.removeById(41);
 
         Product[] expected = {product1, product4};
         Product[] actual = repo.findAll();
@@ -29,13 +29,13 @@ public class ExceptionsTest {
     @Test
     public void ShouldDisplayError() {
         ProductRepository repo = new ProductRepository();
-        repo.save(product1);
-        repo.save(product2);
-        repo.save(product3);
-        repo.save(product4);
+        repo.add(product1);
+        repo.add(product2);
+        repo.add(product3);
+        repo.add(product4);
 
         Assertions.assertThrows(NotFoundException.class, () -> {
-            repo.removeById(-7);
+            repo.removeById(2);
         });
     }
 }
