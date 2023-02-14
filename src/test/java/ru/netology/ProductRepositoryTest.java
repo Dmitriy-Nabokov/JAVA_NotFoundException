@@ -40,4 +40,19 @@ public class ProductRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldTossErrorMessage() {
+        ProductRepository repo = new ProductRepository();
+        repo.add(product1);
+        repo.add(product2);
+        repo.add(product3);
+        repo.add(product4);
+
+        Product[] actual = repo.findAll();
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(14);
+        });
+    }
 }
